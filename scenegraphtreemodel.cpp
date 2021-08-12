@@ -46,20 +46,27 @@ int SceneGraphTreeModel::rowCount(const QModelIndex& parent) const
 
 int SceneGraphTreeModel::columnCount(const QModelIndex& parent) const
 {
+    Q_UNUSED(parent)
     return 1;
 }
 
 QVariant SceneGraphTreeModel::data(const QModelIndex& index, int role) const
 {
-    if (!index.isValid()) {
-        return QVariant();
-    }
+    QVariant returnValue;
 
-    if (role != Qt::DisplayRole) {
-        return QVariant();
+    if (!index.isValid()) {
+        return returnValue;
     }
 
     Qt3DCore::QNode* node = static_cast<Qt3DCore::QNode*>(index.internalPointer());
 
-    return node->metaObject()->className();
+    switch (role) {
+    case Qt::DisplayRole:
+        return node->metaObject()->className();
+    case Qt::UserRole + 1:
+        returnValue.setValue(node);
+        return returnValue;
+    default:
+        return returnValue;
+    }
 }

@@ -19,11 +19,9 @@ public:
     Q_INVOKABLE virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     Q_INVOKABLE virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
-protected:
-    std::function<QList<Qt3DRender::QFrameGraphNode*>(const QList<Qt3DCore::QNode*>& nodes)> m_frameGraphNodes;
-
 private:
     Qt3DRender::QFrameGraphNode* m_rootNode;
+    std::function<QList<Qt3DRender::QFrameGraphNode*>(const QList<Qt3DCore::QNode*>& nodes)> m_frameGraphNodes;
 };
 
 #endif // FRAMEGRAPHTREEMODEL_H

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "renderwindow.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,7 +17,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void showOpenFileDialog();
+
 private:
     Ui::MainWindow *ui;
+    RenderWindow* m_renderWindow;
 };
 #endif // MAINWINDOW_H

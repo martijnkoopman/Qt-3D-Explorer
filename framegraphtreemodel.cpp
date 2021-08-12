@@ -53,7 +53,7 @@ int FrameGraphTreeModel::rowCount(const QModelIndex& parent) const
     }
 
     Qt3DRender::QFrameGraphNode* parentNode = (!parent.isValid() ? m_rootNode : static_cast<Qt3DRender::QFrameGraphNode*>(parent.internalPointer()));
-    int result = parentNode->childNodes().count();
+    int result = m_frameGraphNodes(parentNode->childNodes()).count();
     return result;
 }
 

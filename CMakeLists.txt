@@ -24,6 +24,9 @@ set(PROJECT_SOURCES
     renderwindow.h
     framegraphtreemodel.cpp
     framegraphtreemodel.h
+    propertiesform.cpp
+    propertiesform.h
+    propertiesform.ui
 )
 
 qt_add_executable(explorer
