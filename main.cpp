@@ -1,5 +1,4 @@
-#include "mainwindow.h"
-#include "renderwindow.h"
+#include "ui/mainwindow.h"
 
 #include <QApplication>
 #include <QScreen>

@@ -15,18 +15,26 @@ find_package(Qt6 COMPONENTS Widgets Concurrent 3DCore 3DExtras 3DRender 3DInput 
 
 set(PROJECT_SOURCES
     main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    scenegraphtreemodel.cpp
-    scenegraphtreemodel.h
-    renderwindow.cpp
-    renderwindow.h
-    framegraphtreemodel.cpp
-    framegraphtreemodel.h
-    propertiesform.cpp
-    propertiesform.h
-    propertiesform.ui
+     ui/mainwindow.cpp
+     ui/mainwindow.h
+     ui/mainwindow.ui
+     ui/scenegraphtreemodel.cpp
+     ui/scenegraphtreemodel.h
+     ui/renderwindow.cpp
+     ui/renderwindow.h
+     ui/framegraphtreemodel.cpp
+     ui/framegraphtreemodel.h
+     ui/properties/propertiesform.cpp
+     ui/properties/propertiesform.h
+     ui/properties/propertiesform.ui
+     ui/properties/propertyedit.h
+     ui/properties/propertyedit.cpp
+     ui/properties/floatpropertyedit.h
+     ui/properties/floatpropertyedit.cpp
+     ui/doubleedit.h
+     ui/doubleedit.cpp
+     ui/intedit.h
+     ui/intedit.cpp
 )
 
 qt_add_executable(explorer

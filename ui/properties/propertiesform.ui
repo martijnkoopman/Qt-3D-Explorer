@@ -57,6 +57,9 @@
      </property>
      <item>
       <widget class="QPushButton" name="revertButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Revert</string>
        </property>
@@ -64,6 +67,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="applyButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Apply</string>
        </property>

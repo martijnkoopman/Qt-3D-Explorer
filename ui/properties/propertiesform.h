@@ -5,6 +5,8 @@
 
 #include <Qt3DCore/QNode>
 
+class PropertyEdit;
+
 namespace Ui {
 class PropertiesForm;
 }
@@ -21,6 +23,8 @@ public:
 
 public slots:
     void setNode(Qt3DCore::QNode* n);
+    void apply();
+    void revert();
 
 signals:
     void nodeChanged(Qt3DCore::QNode* n);
@@ -32,6 +36,7 @@ private:
     Ui::PropertiesForm* ui;
 
     Qt3DCore::QNode* m_node;
+    QList<PropertyEdit*> m_propertyEdits;
 };
 
 #endif // PROPERTIESFORM_H

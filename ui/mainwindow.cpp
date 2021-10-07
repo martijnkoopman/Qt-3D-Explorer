@@ -27,15 +27,19 @@ MainWindow::MainWindow(QWidget* parent)
     QWidget* renderWidget = QWidget::createWindowContainer(m_renderWindow);
     setCentralWidget(renderWidget);
 
+    // Setup scene graph tree view
     auto sceneGraphModel = new SceneGraphTreeModel(m_renderWindow->rootEntity());
     ui->sceneGraphTreeView->setModel(sceneGraphModel);
-    ui->frameGraphTreeView->setModel(new FrameGraphTreeModel(m_renderWindow->activeFrameGraph()));
 
     connect(ui->sceneGraphTreeView, &QAbstractItemView::clicked, this, [=](const QModelIndex& index) {
         QVariant variant = sceneGraphModel->data(index, Qt::UserRole + 1);
         Qt3DCore::QNode* node = qvariant_cast<Qt3DCore::QNode*>(variant);
         ui->propertiesForm->setNode(node);
     });
+
+    // Setup frame graph tree view
+    auto frameGraphModel = new FrameGraphTreeModel(m_renderWindow->activeFrameGraph());
+    ui->frameGraphTreeView->setModel(frameGraphModel);
 }
 
 MainWindow::~MainWindow()
