@@ -1,6 +1,6 @@
 #include "floatpropertyedit.h"
 
-#include "ui/doubleedit.h"
+#include "ui/edits/doubleedit.h"
 
 #include <QFont>
 #include <QGridLayout>
@@ -30,7 +30,7 @@ float FloatPropertyEdit::propertyValue() const
 
 float FloatPropertyEdit::widgetValue() const
 {
-    return static_cast<double>(m_edit->value());
+    return static_cast<float>(m_edit->value());
 }
 
 void FloatPropertyEdit::apply()

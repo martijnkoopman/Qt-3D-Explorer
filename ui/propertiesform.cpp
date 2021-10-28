@@ -1,7 +1,13 @@
 #include "propertiesform.h"
 #include "ui_propertiesform.h"
 
-#include "floatpropertyedit.h"
+#include "propertyedits/boolpropertyedit.h"
+#include "propertyedits/enumpropertyedit.h"
+#include "propertyedits/floatpropertyedit.h"
+#include "propertyedits/intpropertyedit.h"
+#include "propertyedits/quaternionpropertyedit.h"
+#include "propertyedits/urlpropertyedit.h"
+#include "propertyedits/vector3dpropertyedit.h"
 
 #include <QFormLayout>
 #include <QLabel>
@@ -93,16 +99,39 @@ void PropertiesForm::setupUI()
                 QLabel* label = new QLabel(ui->scrollAreaWidgetContents);
                 label->setText(QString::fromLocal8Bit(property.typeName()));
 
+                PropertyEdit* propertyEdit = nullptr;
                 if (property.isReadable() && property.typeId() == QMetaType::QString) {
                     auto lineEdit = new QLineEdit(ui->scrollAreaWidgetContents);
                     lineEdit->setText("AA");
                     formLayout->addRow(QString::fromLocal8Bit(property.name()) + ": ", lineEdit);
+                } else if (property.isReadable() && property.typeId() == QMetaType::Int) {
+                    propertyEdit = new IntPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
                 } else if (property.isReadable() && property.typeId() == QMetaType::Float) {
-                    auto floatPropertyEdit = new FloatPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
-                    m_propertyEdits.append(floatPropertyEdit);
-                    formLayout->addRow(QString::fromLocal8Bit(property.name()) + ": ", floatPropertyEdit);
+                    propertyEdit = new FloatPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
+                } else if (property.isReadable() && property.typeId() == QMetaType::Bool) {
+                    propertyEdit = new BoolPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
+                } else if (property.isReadable() && property.typeId() == QMetaType::QVector3D) {
+                    propertyEdit = new Vector3DPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
+                } else if (property.isReadable() && property.typeId() == QMetaType::QQuaternion) {
+                    propertyEdit = new QuaternionPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
+                } else if (property.isReadable() && property.typeId() == QMetaType::QUrl) {
+                    propertyEdit = new UrlPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
+                } else if (property.isReadable() && property.isFlagType()) {
 
-                    connect(floatPropertyEdit, &PropertyEdit::widgetValueChanged, this, [&]() {
+                } else if (property.isReadable() && property.isEnumType()) {
+                    propertyEdit = new EnumPropertyEdit(m_node, property, ui->scrollAreaWidgetContents);
+                } else {
+                    QLabel* label = new QLabel(ui->scrollAreaWidgetContents);
+                    label->setText(QString::fromLocal8Bit(property.typeName()));
+                    formLayout->addRow(QString::fromLocal8Bit(property.name()) + ": ", label);
+                }
+
+                if (propertyEdit != nullptr) {
+                    propertyEdit->setEnabled(property.isWritable());
+                    m_propertyEdits.append(propertyEdit);
+                    formLayout->addRow(QString::fromLocal8Bit(property.name()) + ": ", propertyEdit);
+
+                    connect(propertyEdit, &PropertyEdit::widgetValueChanged, this, [&]() {
                         bool dirty = false;
                         for (PropertyEdit* propertyEdit : m_propertyEdits) {
                             dirty |= propertyEdit->dirty();
@@ -110,10 +139,6 @@ void PropertiesForm::setupUI()
                         ui->applyButton->setEnabled(dirty);
                         ui->revertButton->setEnabled(dirty);
                     });
-                } else {
-                    QLabel* label = new QLabel(ui->scrollAreaWidgetContents);
-                    label->setText(QString::fromLocal8Bit(property.typeName()));
-                    formLayout->addRow(QString::fromLocal8Bit(property.name()) + ": ", label);
                 }
             }
         }

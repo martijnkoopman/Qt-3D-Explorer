@@ -1,19 +1,6 @@
 #include "ui/mainwindow.h"
 
 #include <QApplication>
-#include <QScreen>
-
-#include <Qt3DCore/QAspectEngine>
-#include <Qt3DCore/QTransform>
-#include <Qt3DExtras/QForwardRenderer>
-#include <Qt3DExtras/QSkyboxEntity>
-#include <Qt3DExtras/Qt3DWindow>
-#include <Qt3DInput/QInputAspect>
-#include <Qt3DRender/QCamera>
-#include <Qt3DRender/QPointLight>
-#include <Qt3DRender/QRenderAspect>
-#include <Qt3DRender/QRenderSettings>
-#include <Qt3DRender/QSceneLoader>
 
 int main(int argc, char *argv[])
 {

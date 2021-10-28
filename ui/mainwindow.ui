@@ -60,7 +60,7 @@
       <number>0</number>
      </property>
      <item row="0" column="0">
-      <widget class="QTreeView" name="sceneGraphTreeView">
+      <widget class="SceneGraphTreeView" name="sceneGraphTreeView">
        <property name="rootIsDecorated">
         <bool>true</bool>
        </property>
@@ -140,8 +140,13 @@
   <customwidget>
    <class>PropertiesForm</class>
    <extends>QWidget</extends>
-   <header>ui/properties/propertiesform.h</header>
+   <header>ui/propertiesform.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SceneGraphTreeView</class>
+   <extends>QTreeView</extends>
+   <header>ui/scenegraphtreeview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

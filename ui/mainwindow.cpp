@@ -6,6 +6,7 @@
 
 #include <QFileDialog>
 
+#include <Qt3DCore/QEntity>
 #include <Qt3DExtras/Qt3DWindow>
 #include <Qt3DRender/QSceneLoader>
 

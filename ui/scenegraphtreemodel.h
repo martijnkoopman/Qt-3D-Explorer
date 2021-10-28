@@ -3,7 +3,11 @@
 
 #include <QAbstractItemModel>
 
-#include <Qt3DCore/QEntity>
+#include <QIcon>
+
+namespace Qt3DCore {
+class QNode;
+}
 
 class SceneGraphTreeModel : public QAbstractItemModel {
     Q_OBJECT
@@ -19,6 +23,8 @@ public:
 
 private:
     Qt3DCore::QNode* m_rootNode;
+    QIcon m_entityIcon;
+    QIcon m_componentIcon;
 };
 
 #endif // SCENEGRAPHTREEMODEL_H

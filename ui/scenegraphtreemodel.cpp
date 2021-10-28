@@ -1,8 +1,16 @@
 #include "scenegraphtreemodel.h"
 
+#include <QIcon>
+
+#include <Qt3DCore/QComponent>
+#include <Qt3DCore/QEntity>
+#include <Qt3DCore/QNode>
+
 SceneGraphTreeModel::SceneGraphTreeModel(Qt3DCore::QNode* rootNode, QObject* parent)
     : QAbstractItemModel(parent)
     , m_rootNode(rootNode)
+    , m_entityIcon(":/images/circled-e.svg")
+    , m_componentIcon(":/images/circled-c.svg")
 {
 }
 
@@ -63,6 +71,14 @@ QVariant SceneGraphTreeModel::data(const QModelIndex& index, int role) const
     switch (role) {
     case Qt::DisplayRole:
         return node->metaObject()->className();
+    case Qt::DecorationRole:
+        if (qobject_cast<Qt3DCore::QEntity*>(node) != nullptr) {
+            return m_entityIcon;
+        } else if (qobject_cast<Qt3DCore::QComponent*>(node) != nullptr) {
+            return m_componentIcon;
+        } else {
+            return returnValue;
+        }
     case Qt::UserRole + 1:
         returnValue.setValue(node);
         return returnValue;
