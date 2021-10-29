@@ -68,11 +68,14 @@ QVariant FrameGraphTreeModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
 
-    if (role != Qt::DisplayRole) {
-        return QVariant();
-    }
-
     Qt3DRender::QFrameGraphNode* node = static_cast<Qt3DRender::QFrameGraphNode*>(index.internalPointer());
 
-    return node->metaObject()->className();
+    switch (role) {
+    case Qt::DisplayRole:
+        return node->metaObject()->className();
+    case Qt::UserRole + 1:
+        return QVariant::fromValue(node);
+    default:
+        return QVariant();
+    }
 }

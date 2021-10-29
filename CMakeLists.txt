@@ -15,6 +15,8 @@ find_package(Qt6 COMPONENTS Widgets Concurrent 3DCore 3DExtras 3DRender 3DInput 
 
 set(PROJECT_SOURCES
     main.cpp
+    application.h
+    application.cpp
     components/propertycomponent.h
     components/propertycomponent.cpp
     ui/mainwindow.cpp

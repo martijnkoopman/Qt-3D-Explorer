@@ -60,10 +60,8 @@ int SceneGraphTreeModel::columnCount(const QModelIndex& parent) const
 
 QVariant SceneGraphTreeModel::data(const QModelIndex& index, int role) const
 {
-    QVariant returnValue;
-
     if (!index.isValid()) {
-        return returnValue;
+        return QVariant();
     }
 
     Qt3DCore::QNode* node = static_cast<Qt3DCore::QNode*>(index.internalPointer());
@@ -77,12 +75,11 @@ QVariant SceneGraphTreeModel::data(const QModelIndex& index, int role) const
         } else if (qobject_cast<Qt3DCore::QComponent*>(node) != nullptr) {
             return m_componentIcon;
         } else {
-            return returnValue;
+            return QVariant();
         }
     case Qt::UserRole + 1:
-        returnValue.setValue(node);
-        return returnValue;
+        QVariant::fromValue(node);
     default:
-        return returnValue;
+        return QVariant();
     }
 }

@@ -1,10 +1,9 @@
+#include "application.h"
 #include "ui/mainwindow.h"
-
-#include <QApplication>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    Application app(argc, argv);
 
     //    auto renderWindow = new RenderWindow();
     //    renderWindow->defaultFrameGraph()->setClearColor(QColor(QRgb(0xFFFFFF)));
@@ -26,7 +25,7 @@ int main(int argc, char *argv[])
     //    pickingSettings->setPickMethod(Qt3DRender::QPickingSettings::TrianglePicking);
     //    pickingSettings->setPickResultMode(Qt3DRender::QPickingSettings::NearestPick);
 
-    MainWindow w;
-    w.show();
-    return a.exec();
+    MainWindow window;
+    window.show();
+    return app.exec();
 }

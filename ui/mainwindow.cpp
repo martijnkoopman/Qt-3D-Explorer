@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include "application.h"
 #include "framegraphtreemodel.h"
 #include "scenegraphtreemodel.h"
 
@@ -8,6 +9,7 @@
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DExtras/Qt3DWindow>
+#include <Qt3DRender/QFrameGraphNode>
 #include <Qt3DRender/QSceneLoader>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -16,6 +18,8 @@ MainWindow::MainWindow(QWidget* parent)
     , m_renderWindow(new RenderWindow())
 {
     ui->setupUi(this);
+
+    Application* app = Application::instance();
 
     // Setup dock widgets
     splitDockWidget(ui->frameGraphDockWidget, ui->propertiesDockWidget, Qt::Orientation::Vertical);
@@ -29,7 +33,7 @@ MainWindow::MainWindow(QWidget* parent)
     setCentralWidget(renderWidget);
 
     // Setup scene graph tree view
-    auto sceneGraphModel = new SceneGraphTreeModel(m_renderWindow->rootEntity());
+    auto sceneGraphModel = new SceneGraphTreeModel(&app->rootEntity());
     ui->sceneGraphTreeView->setModel(sceneGraphModel);
 
     connect(ui->sceneGraphTreeView, &QAbstractItemView::clicked, this, [=](const QModelIndex& index) {
@@ -41,6 +45,12 @@ MainWindow::MainWindow(QWidget* parent)
     // Setup frame graph tree view
     auto frameGraphModel = new FrameGraphTreeModel(m_renderWindow->activeFrameGraph());
     ui->frameGraphTreeView->setModel(frameGraphModel);
+
+    connect(ui->frameGraphTreeView, &QAbstractItemView::clicked, this, [=](const QModelIndex& index) {
+        QVariant variant = frameGraphModel->data(index, Qt::UserRole + 1);
+        Qt3DRender::QFrameGraphNode* frameGraphNode = qvariant_cast<Qt3DRender::QFrameGraphNode*>(variant);
+        ui->propertiesForm->setNode(frameGraphNode);
+    });
 }
 
 MainWindow::~MainWindow()
