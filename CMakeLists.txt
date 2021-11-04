@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
     ui/renderwindow.h
     ui/framegraphtreemodel.cpp
     ui/framegraphtreemodel.h
+    ui/componentswidget.h
+    ui/componentswidget.cpp
     ui/propertiesform.cpp
     ui/propertiesform.h
     ui/propertiesform.ui

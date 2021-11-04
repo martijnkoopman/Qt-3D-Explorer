@@ -40,7 +40,7 @@
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>Scene graph</string>
+    <string>Entities</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -127,6 +127,30 @@
    </attribute>
    <widget class="PropertiesForm" name="propertiesForm"/>
   </widget>
+  <widget class="QDockWidget" name="componentsDockWidget">
+   <property name="windowTitle">
+    <string>Components</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="ComponentsWidget" name="componentsDockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionOpenFile">
    <property name="text">
     <string>Open File...</string>
@@ -147,6 +171,12 @@
    <class>SceneGraphTreeView</class>
    <extends>QTreeView</extends>
    <header>ui/scenegraphtreeview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ComponentsWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/componentswidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
